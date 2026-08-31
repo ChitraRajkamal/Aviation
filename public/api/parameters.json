@@ -1,0 +1,65 @@
+{
+  "CategoryIdParameter": {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "description": "Category ID",
+    "schema": {
+      "type": "integer"
+    }
+  },
+  "CourseIdParameter": {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "description": "Course ID",
+    "schema": {
+      "type": "integer"
+    }
+  },
+  "CourseIdAltParameter": {
+    "name": "courseId",
+    "in": "path",
+    "required": true,
+    "description": "Course ID",
+    "schema": {
+      "type": "integer"
+    }
+  },
+  "ExamIdParameter": {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "description": "Exam ID",
+    "schema": {
+      "type": "integer"
+    }
+  },
+  "ExamIdAltParameter": {
+    "name": "examId",
+    "in": "path",
+    "required": true,
+    "description": "Exam ID",
+    "schema": {
+      "type": "integer"
+    }
+  },
+  "ResultIdParameter": {
+    "name": "resultId",
+    "in": "path",
+    "required": true,
+    "description": "Attempt / Result ID",
+    "schema": {
+      "type": "integer"
+    }
+  },
+  "LessonIdParameter": {
+    "name": "lessonId",
+    "in": "path",
+    "required": true,
+    "description": "Lesson ID",
+    "schema": {
+      "type": "integer"
+    }
+  }
+}

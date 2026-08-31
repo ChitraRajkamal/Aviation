@@ -1,0 +1,2710 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Neo Matrix API Documentation",
+    "description": "API documentation generated for the provided routes and controllers.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8000/api",
+      "description": "Local Server"
+    },
+    {
+      "url": "https://app.neomatrixsolutions.com/api",
+      "description": "Staging Server"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "components": {
+    "parameters": {
+      "CategoryIdParameter": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Category ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CourseIdParameter": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Course ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "CourseIdAltParameter": {
+        "name": "courseId",
+        "in": "path",
+        "required": true,
+        "description": "Course ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "ExamIdParameter": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Exam ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "RecordedVideoIdParameter": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Recorded Video ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "JobPostIdParameter": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Job Post ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "ExamIdAltParameter": {
+        "name": "examId",
+        "in": "path",
+        "required": true,
+        "description": "Exam ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "ResultIdParameter": {
+        "name": "resultId",
+        "in": "path",
+        "required": true,
+        "description": "Attempt / Result ID",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "LessonIdParameter": {
+        "name": "lessonId",
+        "in": "path",
+        "required": true,
+        "description": "Lesson ID",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "schemas": {
+      "ExamAnswer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": "1"
+          },
+          "answer": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": "[\"correct answer\"]"
+          }
+        }
+      },
+      "WishlistRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Select type (course / exam)",
+            "enum": ["course", "exam"],
+            "example": "course"
+          },
+          "type_id": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        "required": [
+          "type",
+          "type_id"
+        ]
+      },
+      "CartRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Select type (course / exam / recorded video / job post)",
+            "enum": ["course", "exam", "recorded-video", "job-post"],
+            "example": "course"
+          },
+          "type_id": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        "required": [
+          "type",
+          "type_id"
+        ]
+      },
+      "RatingRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Select type (course / exam / recorded video / job post)",
+            "enum": ["course", "exam", "recorded-video", "job-post"],
+            "example": "course"
+          },
+          "type_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "rating": {
+            "type": "integer",
+            "example": 1,
+            "enum": [1, 2, 3, 4, 5]
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 10,
+            "example": ""
+          }
+        },
+        "required": [
+          "type",
+          "type_id",
+          "rating",
+          "message"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },  
+  "paths": {
+    "/get_settings": {
+      "get": {
+        "summary": "Get settings",
+        "description": "Retrieves settings.",
+        "tags": [
+          "General"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved settings.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "can_login": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "sliders": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "settings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "User login",
+        "description": "Authenticates a user and returns an access token.",
+        "tags":[
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "User email.",
+                    "example": "hussain@iolink.ca"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User password.",
+                    "example": "123456789"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          },
+          "403": {
+            "description": "Inactive account."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "User registration",
+        "description": "Registers a new user and returns an access token.",
+        "tags":[
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "first_name",
+                  "last_name",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration successful.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/social-login": {
+      "post": {
+        "summary": "Login with google or facebook",
+        "description": "Login with google or facebook.",
+        "tags":[
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "William Antony"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "william@gmail.com"
+                  },
+                  "picture": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Select type (google or facebook)",
+                    "enum": ["google", "facebook"],
+                    "example": "google"
+                  },
+                  "id": {
+                    "type": "string",
+                    "example": "googleid00984"
+                  },
+                  "token": {
+                    "type": "string",
+                    "example": "googletoken65456465"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "type",
+                  "id",
+                  "token"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticaion successful.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "summary": "User logout",
+        "description": "Used to log out an user with access token.",
+        "tags":[
+          "Authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout successful.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials."
+          }
+        }
+      }
+    },
+    "/forgot-password": {
+      "post": {
+        "summary": "Forgot password",
+        "description": "Forgot password.",
+        "tags":[
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration successful.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/reset-password": {
+      "post": {
+        "summary": "Reset password",
+        "description": "Reset password.",
+        "tags":[
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": ""
+                  },
+                  "otp": {
+                    "type": "string",
+                    "example": "",
+                    "description": "OTP that was sent to your registered email address"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": ""
+                  }
+                },
+                "required": [
+                  "email",
+                  "otp",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration successful.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/get_dashboard": {
+      "get": {
+        "summary": "Get student dashboard",
+        "description": "Get student dashboard.",
+        "tags":[
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns dashboard data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "enrolled_exams": {
+                      "type": "integer"
+                    },
+                    "active_exams": {
+                      "type": "integer"
+                    },
+                    "completed_exams": {
+                      "type": "integer"
+                    },
+                    "last_5_exams": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/get_profile": {
+      "get": {
+        "summary": "Get user profile",
+        "description": "Retrieves the authenticated user's profile.",
+        "tags":[
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "user": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/update_profile": {
+      "post": {
+        "summary": "Update user profile",
+        "description": "Updates the authenticated user's profile information.",
+        "tags":[
+          "Account"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "first_name",
+                  "last_name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/update_password": {
+      "post": {
+        "summary": "Update user password",
+        "description": "Updates the authenticated user's password.",
+        "tags":[
+          "Account"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "current_password": {
+                    "type": "string"
+                  },
+                  "new_password": {
+                    "type": "string"
+                  },
+                  "new_password_confirmation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "current_password",
+                  "new_password",
+                  "new_password_confirmation"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password updated successfully."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },    
+    "/delete_account": {
+      "delete": {
+        "summary": "Delete my account",
+        "description": "This is an irreversible account. Please make sure that you still want to delete your account.",
+        "tags":[
+          "Account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Account deleted."
+          },
+          "404": {
+            "description": "Account not found."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/get_categories": {
+      "get": {
+        "summary": "Get all course categories",
+        "description": "Retrieves all course categories",
+        "tags": [
+          "Course Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved course categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_categories_tree": {
+      "get": {
+        "summary": "Get all course categories",
+        "description": "Retrieves all course categories",
+        "tags": [
+          "Course Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved course categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_all_categories": {
+      "get": {
+        "summary": "Get all categories",
+        "description": "Retrieves all course categories.",
+        "tags": [
+          "Course Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+					  "type": "array",
+					  "items": {
+						"type": "object"
+					  }
+					}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_parent_categories": {
+      "get": {
+        "summary": "Get parent categories",
+        "description": "Retrieves parent categories with status active.",
+        "tags": [
+          "Course Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved parent categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+					  "type": "array",
+					  "items": {
+						"type": "object"
+					  }
+					}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_sub_categories/{id}": {
+      "get": {
+        "summary": "Get sub-categories",
+        "description": "Retrieves sub-categories for a given category ID.",
+        "tags": [
+          "Course Categories"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CategoryIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved sub-categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+					  "type": "array",
+					  "items": {
+						"type": "object"
+					  }
+					}
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category ID is required or category not found."
+          }
+        }
+      }
+    },
+    "/get_category_details/{id}": {
+      "get": {
+        "summary": "Get category details",
+        "description": "Retrieves detailed information for a given category ID.",
+        "tags": [
+          "Course Categories"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CategoryIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved course category details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "category": {
+					  "type": "object"
+					}
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found or Category ID is required."
+          }
+        }
+      }
+    },
+    "/get_my_courses": {
+      "get": {
+        "summary": "Get my courses",
+        "description": "Get my courses.",
+        "tags":[
+          "Courses"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns my courses data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "courses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/get_courses": {
+      "get": {
+        "summary": "Get all courses",
+        "description": "Retrieves all active courses.",
+        "tags": [
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "nullable": true,
+              "default": null
+            },
+            "description": "Category ID [Optional]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved courses.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "courses": {
+                      "type": "array",
+                      "items": {
+                      "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_course_details/{id}": {
+      "get": {
+        "summary": "Get course details",
+        "description": "Retrieves detailed information for a given course ID.",
+        "tags": [
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved course details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "category": {
+					  "type": "object"
+					}
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Course not found or Course ID is required."
+          }
+        }
+      }
+    },
+    "/get_exam_categories": {
+      "get": {
+        "summary": "Get all exam categories",
+        "description": "Retrieves all exam categories.",
+        "tags": [
+          "Exam Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exam categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_exam_category_details/{id}": {
+      "get": {
+        "summary": "Get exam category details",
+        "description": "Retrieves detailed information for a given category ID.",
+        "tags": [
+          "Exam Categories"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CategoryIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exam category details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "category": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found or Category ID is required."
+          }
+        }
+      }
+    },
+    "/get_my_exams": {
+      "get": {
+        "summary": "Get my exams",
+        "description": "Get my exams.",
+        "tags":[
+          "Exams"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns my exams data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "exams": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/get_exams": {
+      "get": {
+        "summary": "Get all exams",
+        "description": "Retrieves all active exams.",
+        "tags": [
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "nullable": true,
+              "default": null
+            },
+            "description": "Category ID [Optional]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exams.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "courses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_exam_details/{id}": {
+      "get": {
+        "summary": "Get exam details",
+        "description": "Retrieves detailed information for a given exam ID.",
+        "tags": [
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exam details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "category": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Exam not found or Exam ID is required."
+          }
+        }
+      }
+    },
+    "/exams/enroll/{id}": {
+      "post": {
+        "summary": "Enroll into exam",
+        "description": "Enroll into exam.",
+        "tags":[
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          },
+          {
+            "name": "razorpay_payment_id",
+            "in": "query",
+            "description": "Razorpay Payment ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_order_id",
+            "in": "query",
+            "description": "Razorpay Order ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_signature",
+            "in": "query",
+            "description": "Razorpay Signature",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enrollment is successful."
+          },
+          "409": {
+            "description": "Already enrolled."
+          }
+        }
+      }
+    },
+    "/exams/questions/{id}": {
+      "post": {
+        "summary": "Get questions from exam",
+        "description": "Get questions from exam.",
+        "tags":[
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Question list."
+          }
+        }
+      }
+    },
+    "/exams/submit_answers/{id}": {
+      "post": {
+        "summary": "Submit exam answers",
+        "description": "Submit exam answers.",
+        "tags":[
+          "Exams"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time_taken": {
+                    "type": "integer",
+                    "example": "Ex: 60 (1 minute), 300 (5 minutes), 3600 (1 hour)",
+                    "description": "Time taken in seconds (e.g., 500 seconds)"
+                  },
+                  "answers": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        { "$ref": "#/components/schemas/ExamAnswer" },
+                        { "$ref": "#/components/schemas/ExamAnswer" },
+                        { "$ref": "#/components/schemas/ExamAnswer" }
+                      ]
+                    }
+                  }
+                }                
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Submission is successful."
+          }
+        }
+      }
+    },
+    "/exams/results/{id}": {
+      "get": {
+        "summary": "Get exam attempts / results",
+        "description": "Retrieves exam attempts / results for a given exam ID.",
+        "tags": [
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exam attempts / results.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Exam not found or Exam ID is required."
+          }
+        }
+      }
+    },
+    "/exams/results/{examId}/details/{resultId}": {
+      "get": {
+        "summary": "Get exam attempt / result details",
+        "description": "Retrieves exam attempt / result details for a given attempt / result ID.",
+        "tags": [
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdAltParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ResultIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exam attempt / result details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "result": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Exam not found or Exam ID is required."
+          }
+        }
+      }
+    },
+    "/courses/enroll/{id}": {
+      "post": {
+        "summary": "Enroll into course",
+        "description": "Enroll into course.",
+        "tags":[
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          },
+          {
+            "name": "razorpay_payment_id",
+            "in": "query",
+            "description": "Razorpay Payment ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_order_id",
+            "in": "query",
+            "description": "Razorpay Order ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_signature",
+            "in": "query",
+            "description": "Razorpay Signature",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enrollment is successful."
+          },
+          "409": {
+            "description": "Already enrolled."
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/progress/{lessonId}": {
+      "post": {
+        "summary": "Course Lesson Progress",
+        "description": "Course Lesson Progress.",
+        "tags":[
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdAltParameter"
+          },
+          {
+            "$ref": "#/components/parameters/LessonIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course progress updated."
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/submit_answers/{lessonId}": {
+      "post": {
+        "summary": "Submit quiz answers",
+        "description": "Submit quiz answers.",
+        "tags":[
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdAltParameter"
+          },
+          {
+            "$ref": "#/components/parameters/LessonIdParameter"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time_taken": {
+                    "type": "integer",
+                    "example": "Ex: 60 (1 minute), 300 (5 minutes), 3600 (1 hour)",
+                    "description": "Time taken in seconds (e.g., 500 seconds)"
+                  },
+                  "answers": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        { "$ref": "#/components/schemas/ExamAnswer" },
+                        { "$ref": "#/components/schemas/ExamAnswer" },
+                        { "$ref": "#/components/schemas/ExamAnswer" }
+                      ]
+                    }
+                  }
+                }                
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Enrollment is successful."
+          },
+          "409": {
+            "description": "Already enrolled."
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/results/{lessonId}": {
+      "post": {
+        "summary": "Get quiz attempts / results",
+        "description": "Retrieves quiz attempts / results for a given quiz ID.",
+        "tags": [
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdAltParameter"
+          },
+          {
+            "$ref": "#/components/parameters/LessonIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved quiz attempts / results.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Quiz not found or Quiz ID is required."
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/results/{lessonId}/details/{resultId}": {
+      "post": {
+        "summary": "Get quiz attempts / results",
+        "description": "Retrieves quiz attempts / results for a given quiz ID.",
+        "tags": [
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdAltParameter"
+          },
+          {
+            "$ref": "#/components/parameters/LessonIdParameter"
+          },
+          {
+            "$ref": "#/components/parameters/ResultIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved quiz attempts / results.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Quiz not found or Quiz ID is required."
+          }
+        }
+      }
+    },
+    "/get_recorded_video_categories": {
+      "get": {
+        "summary": "Get all recorded video categories",
+        "description": "Retrieves all recorded video categories.",
+        "tags": [
+          "Recorded Video Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved recorded video categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_recorded_video_category_details/{id}": {
+      "get": {
+        "summary": "Get recorded video category details",
+        "description": "Retrieves detailed information for a given category ID.",
+        "tags": [
+          "Recorded Video Categories"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CategoryIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved recorded video category details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "category": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found or Category ID is required."
+          }
+        }
+      }
+    },
+    "/get_my_recorded_videos": {
+      "get": {
+        "summary": "Get my videos",
+        "description": "Get my videos.",
+        "tags":[
+          "Recorded Videos"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns my video data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "recorded_videos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/get_recorded_videos": {
+      "get": {
+        "summary": "Get all recorded videos",
+        "description": "Retrieves all active recorded videos.",
+        "tags": [
+          "Recorded Videos"
+        ],
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "nullable": true,
+              "default": null
+            },
+            "description": "Category ID [Optional]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved recorded videos.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "courses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_recorded_video_details/{id}": {
+      "get": {
+        "summary": "Get recorded video details",
+        "description": "Retrieves detailed information for a given recorded video ID.",
+        "tags": [
+          "Recorded Videos"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RecordedVideoIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved recorded video details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "recorded_video": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recorded Video not found or Recorded Video ID is required."
+          }
+        }
+      }
+    },
+    "/recorded_videos/enroll/{id}": {
+      "post": {
+        "summary": "Enroll into recorded video",
+        "description": "Enroll into recorded video.",
+        "tags":[
+          "Recorded Videos"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/RecordedVideoIdParameter"    
+          },
+          {
+            "name": "razorpay_payment_id",
+            "in": "query",
+            "description": "Razorpay Payment ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_order_id",
+            "in": "query",
+            "description": "Razorpay Order ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_signature",
+            "in": "query",
+            "description": "Razorpay Signature",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enrollment is successful."
+          },
+          "409": {
+            "description": "Already enrolled."
+          }
+        }
+      }
+    },
+    "/get_job_post_categories": {
+      "get": {
+        "summary": "Get all job post categories",
+        "description": "Retrieves all job post categories.",
+        "tags": [
+          "Job Post Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved job post categories.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_job_post_category_details/{id}": {
+      "get": {
+        "summary": "Get job post category details",
+        "description": "Retrieves detailed information for a given category ID.",
+        "tags": [
+          "Job Post Categories"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CategoryIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved job post category details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "category": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found or Category ID is required."
+          }
+        }
+      }
+    },
+    "/get_my_job_posts": {
+      "get": {
+        "summary": "Get my jobs",
+        "description": "Get my jobs.",
+        "tags":[
+          "Job Posts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns my job data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "job_posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          }
+        }
+      }
+    },
+    "/get_job_posts": {
+      "get": {
+        "summary": "Get all job posts",
+        "description": "Retrieves all active job posts.",
+        "tags": [
+          "Job Posts"
+        ],
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "nullable": true,
+              "default": null
+            },
+            "description": "Category ID [Optional]"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved job posts.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "job_posts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_job_post_details/{id}": {
+      "get": {
+        "summary": "Get job post details",
+        "description": "Retrieves detailed information for a given job post ID.",
+        "tags": [
+          "Job Posts"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/JobPostIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved job post details.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "job_post": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job Post not found or Job Post ID is required."
+          }
+        }
+      }
+    },
+    "/job_posts/enroll/{id}": {
+      "post": {
+        "summary": "Enroll into job post",
+        "description": "Enroll into job post.",
+        "tags":[
+          "Job Posts"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/JobPostIdParameter"    
+          },
+          {
+            "name": "razorpay_payment_id",
+            "in": "query",
+            "description": "Razorpay Payment ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_order_id",
+            "in": "query",
+            "description": "Razorpay Order ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "razorpay_signature",
+            "in": "query",
+            "description": "Razorpay Signature",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enrollment is successful."
+          },
+          "409": {
+            "description": "Already enrolled."
+          }
+        }
+      }
+    },
+    "/get_wishlist": {
+      "get": {
+        "summary": "Get my wishlist",
+        "description": "Retrieves wishlist.",
+        "tags": [
+          "Wishlist"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved wishlist.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "wishlist": {
+                      "type": "array",
+                      "items": {
+                      "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wishlist/add": {
+      "post": {
+        "summary": "Add course / exam to wishlist",
+        "description": "Add course / exam to wishlist.",
+        "tags":[
+          "Wishlist"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/WishlistRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wishlist saved successfully."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/wishlist/remove": {
+      "post": {
+        "summary": "Remove course / exam from wishlist",
+        "description": "Remove course / exam from wishlist.",
+        "tags":[
+          "Wishlist"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/WishlistRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wishlist saved successfully."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/get_cart": {
+      "get": {
+        "summary": "Get my cart",
+        "description": "Retrieves cart.",
+        "tags": [
+          "Cart"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved cart.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "cart": {
+                      "type": "array",
+                      "items": {
+                      "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/add": {
+      "post": {
+        "summary": "Add course / exam to cart",
+        "description": "Add course / exam to cart.",
+        "tags":[
+          "Cart"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cart saved successfully."
+          },
+          "409": {
+            "description": "Already enrolled."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/cart/remove": {
+      "post": {
+        "summary": "Remove course / exam from cart",
+        "description": "Remove course / exam from cart.",
+        "tags":[
+          "Cart"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cart saved successfully."
+          },
+          "409": {
+            "description": "Already enrolled."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },    
+    "/cart/checkout": {
+      "post": {
+        "summary": "Create cart checkout",
+        "description": "Create cart checkout.",
+        "tags":[
+          "Cart"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "razorpay_payment_id": {
+                    "type": "string",
+                    "description": "Razorpay Payment ID"
+                  },
+                  "razorpay_order_id": {
+                    "type": "string",
+                    "description": "Razorpay Payment ID"
+                  },
+                  "razorpay_signature": {
+                    "type": "string",
+                    "description": "Razorpay Payment ID"
+                  },
+                  "cart_ids": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "example": "1"
+                            },
+                            "type": {
+                              "type": "integer",
+                              "example": "course"
+                            },
+                            "type_id": {
+                              "type": "integer",
+                              "example": "2"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+                
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Checkout is successful."
+          },
+          "409": {
+            "description": "Already enrolled."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/get_ratings": {
+      "get": {
+        "summary": "Get my rating",
+        "description": "Retrieves rating.",
+        "tags": [
+          "Rating"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved rating.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "rating": {
+                      "type": "array",
+                      "items": {
+                      "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ratings/add": {
+      "post": {
+        "summary": "Add rating to course / exam",
+        "description": "Add rating to course / exam.",
+        "tags":[
+          "Rating"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rating saved successfully."
+          },
+          "422": {
+            "description": "Validation error."
+          }
+        }
+      }
+    },
+    "/get_course_certificate/{id}": {
+      "get": {
+        "summary": "Get my course certificate",
+        "description": "Retrieves course certificate.",
+        "tags": [
+          "Certificate"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved course certificate.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_exam_certificate/{id}": {
+      "get": {
+        "summary": "Get my exam certificate",
+        "description": "Retrieves exam certificate.",
+        "tags": [
+          "Certificate"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ExamIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exam certificate.",
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
