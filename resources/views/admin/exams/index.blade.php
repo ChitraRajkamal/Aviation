@@ -85,9 +85,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($examList as $item) 
+                    @foreach ($examList as $item)
                         @php
-                            $thumb = lms_thumb_placeholder();                            
+                            $thumb = lms_thumb_placeholder();
                             if($item->thumbnail) $thumb = lms_storage($item->thumbnail);
                         @endphp
                         <tr class="tr_{{$item->id}}">
@@ -101,7 +101,7 @@
                             <td>{{$item->question_count()}}</td>
                             <td>
                                 <div class="stars-area">
-                                    <span class="bs-tt fw-bold" title="Average ratings">{{lms_decimal_points($item->rating_average($global_is_organization))}}</span>
+                                    <span class="bs-tt fw-bold" title="Average ratings">{{lms_decimal_points($item->rating_average($global_is_organization), 1)}}</span>
                                     <div class="stars-area">
                                         <div class="stars-background">
                                             {!!str_repeat('<i class="fa fa-star-o"></i>', 5)!!}
@@ -143,8 +143,8 @@
                                             </div>
                                         @endif
                                         @if (lms_can_access('admin.exams.activate'))
-                                            <form action="{{ route('admin.exams.activate', ['examId' => $item->id, 'status' => $item->status ? 0 : 1]) }}" id="activate-form-{{$item->id}}" 
-                                                class="d-inline-block mb-0 confirm-action mr-1" data-action="submit" 
+                                            <form action="{{ route('admin.exams.activate', ['examId' => $item->id, 'status' => $item->status ? 0 : 1]) }}" id="activate-form-{{$item->id}}"
+                                                class="d-inline-block mb-0 confirm-action mr-1" data-action="submit"
                                                 data-element_id="activate-form-{{$item->id}}" method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -154,8 +154,8 @@
                                             </form>
                                         @endif
                                         @if (lms_can_access('admin.exams.destroy'))
-                                            <form action="{{ route('admin.exams.destroy', $item) }}" id="delete-form-{{$item->id}}" 
-                                                class="d-inline-block mb-0 mr-1 confirm-action" data-action="submit" 
+                                            <form action="{{ route('admin.exams.destroy', $item) }}" id="delete-form-{{$item->id}}"
+                                                class="d-inline-block mb-0 mr-1 confirm-action" data-action="submit"
                                                 data-element_id="delete-form-{{$item->id}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -175,7 +175,7 @@
                                                 <i class="fa fa-star mr-0 text-white"></i>
                                             </a>
                                         @endif
-                                    @endif                                    
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -187,7 +187,7 @@
             <div>Total Exams: <b>{{ $examList->total() }}</b></div>
             <div>{{$examList->links()}}</div>
         </div>
-        
+
     </div>
 </div>
 @endsection

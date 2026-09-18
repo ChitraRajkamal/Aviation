@@ -98,7 +98,7 @@
                     </div>
                     @if ($exam->negative_mark)
                         <div class="alert alert-warning d-flex align-items-center gap-3 px-5 py-4 mt-2">
-                            <i class="fa fa-exclamation-triangle text-danger fa-2x"></i> 
+                            <i class="fa fa-exclamation-triangle text-danger fa-2x"></i>
                             <div>
                                 Negative marking applies to this exam.<br>
                                 <b>{{$exam->negative_mark}}</b> marks will be deducted for each incorrect answer.
@@ -122,7 +122,7 @@
 								<div class="each-quesiton">
 									<h6 class="mb-1 d-flex justify-content-between">
 										<span>
-											Question #{{++$question_serial_number}} 
+											Question #{{++$question_serial_number}}
 											@if ($q->type == 'multiple' && count($answers) > 1)
 												<small class="text-muted">
 													[Choose {{count($answers)}} {{ lms_plural('answer', count($answers)) }}]
@@ -140,9 +140,7 @@
 													@php
 														$op = trim($op);
 														if($op === '') continue;
-														//$op = '<img src="http://127.0.0.1:8000/storage/exam_images/67bdf56d80037.png" style="max-height: 160px;" />';
-														/*preg_match('/src="([^"]+)"/', $op, $matches);
-														$image_link = isset($matches[1]) && is_array($matches[1]) ? '' : ($matches[1] ?? '');*/
+
 													@endphp
 													<div class="col-lg-12">
 														<div class="form-check">
@@ -150,7 +148,7 @@
 															<label class="form-check-label" for="checkbox_{{$q->id}}_{{$opk}}">
 																{!!$op!!}
 															</label>
-														</div>                                                   
+														</div>
 													</div>
 												@endforeach
 											</div>
@@ -170,7 +168,7 @@
 														false
 													</label>
 												</div>
-											</div>                                    
+											</div>
 										@endif
 									</div>
 								</div>
@@ -203,9 +201,9 @@
                                     </div>
                                 @endif
                             </div>
-                        @endif                        
+                        @endif
                         <div class="price-area {{$exam->thumbnail ? 'mt-5' : 'mt-0'}}">
-                            
+
                             @if ($exam->discount_flag)
                                 <h3 class="title">{!!lms_show_price($exam, 'discounted_price')!!}</h3>
                                 <h4 class="none">{!!lms_show_price($exam)!!}</h4>
@@ -289,7 +287,7 @@
                 marginTop: 120,
                 minWidth: 1100
             });
-            
+
             const [hours, minutes, seconds] = exam_settings.duration.split(":").map(Number);
             let totalSeconds = hours * 3600 + minutes * 60 + seconds;
             let _totalSeconds = totalSeconds;
@@ -353,8 +351,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-4 px-5 text-center text-muted h">
-                    Switching windows or using Alt + Tab during the exam is <b class="text-danger h4">strictly prohibited</b>. 
-                    This is your first and last warning. Further violations will result in the automatic 
+                    Switching windows or using Alt + Tab during the exam is <b class="text-danger h4">strictly prohibited</b>.
+                    This is your first and last warning. Further violations will result in the automatic
                     submission of your answers and <b class="text-danger h4">termination</b> of the exam.
                 </div>
                 <div class="modal-footer justify-content-center">

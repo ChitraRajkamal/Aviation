@@ -10,6 +10,7 @@
 @section('meta-data')
     <meta name="title" content="{{ $title }}">
     <meta name="description" content="{{ $description }}">
+    <link rel="canonical" href="{{ url('/') }}">
     <meta name="keywords"
         content="Aviation Academy Chennai,Air Hostess Course Chennai,Cabin Crew Training Chennai,Airport Ground Staff Course,Airport Operations Training,Pilot Ground School Chennai,Aviation Institute Tamil Nadu,Aviation Courses Chennai,Travel and Tourism Course Chennai,Drone Training Chennai">
 
@@ -420,7 +421,7 @@
                     <div class="why-choose-us-area-image">
 
                         <img class="rounded-5"
-                            src="{{ asset('assets/images/gallery/airport-exposure/airport-exposure.png') }}"
+                            src="{{ asset('assets/images/gallery/airport-exposure/airport-exposure.webp') }}"
                             alt="Airport Exposure Program">
 
                     </div>
@@ -569,10 +570,7 @@
                                         <a href="{{ lms_course_slug($course_item) }}" class="thumbnail">
                                             <img src="{{ lms_image($course_item->thumbnail) }}" alt="course">
                                         </a>
-                                        <div class="save-icon d-none" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal-login">
-                                            <i class="fa-sharp fa-light fa-bookmark"></i>
-                                        </div>
+
                                         <div class="tags-area-wrapper mb-3">
                                             <div class="single-tag">
                                                 <span>{{ $category_item->title }}</span>
@@ -608,7 +606,7 @@
                                             <div class="rating-area">
                                                 <div class="stars">
                                                     <span
-                                                        class="text-dark fw-bold">{{ lms_decimal_points($course_item->ratings) }}</span>
+                                                        class="text-dark fw-bold">{{ lms_decimal_points($course_item->ratings, 1) }}</span>
 
                                                     <div class="stars-area">
                                                         <div class="stars-background">
@@ -857,7 +855,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/aishwarya.png') }}"
-                                                        class="rounded-circle" alt="Aishwarya G">
+                                                        class="rounded-circle" alt="Aishwarya G" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -889,7 +887,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/vishal.png') }}"
-                                                        class="rounded-circle" alt="Vishal S">
+                                                        class="rounded-circle" alt="Vishal S" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -920,7 +918,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/monika.png') }}"
-                                                        class="rounded-circle" alt="Monika R">
+                                                        class="rounded-circle" alt="Monika R" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -951,7 +949,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/suresh.png') }}"
-                                                        class="rounded-circle" alt="Suresh K">
+                                                        class="rounded-circle" alt="Suresh K" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -985,7 +983,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/janani.png') }}"
-                                                        class="rounded-circle" alt="Janani P">
+                                                        class="rounded-circle" alt="Janani P" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -1016,7 +1014,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/harish.png') }}"
-                                                        class="rounded-circle" alt="Harish M">
+                                                        class="rounded-circle" alt="Harish M" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -1047,7 +1045,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/sneha.png') }}"
-                                                        class="rounded-circle" alt="Sneha V">
+                                                        class="rounded-circle" alt="Sneha V" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -1078,7 +1076,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/akash.png') }}"
-                                                        class="rounded-circle" alt="Akash D">
+                                                        class="rounded-circle" alt="Akash D" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -1110,7 +1108,7 @@
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
                                                     <img src="{{ asset('assets/images/students/lavanya.png') }}"
-                                                        class="rounded-circle" alt="Lavanya S">
+                                                        class="rounded-circle" alt="Lavanya S" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
                                                             <li><i class="fa-sharp fa-solid fa-star"></i></li>
@@ -1325,7 +1323,7 @@
                         <div class="gallery-preview-card">
 
                             <img src="{{ asset('assets/images/gallery/airport-exposure/students-visiting-airport-terminal.jpg') }}"
-                                alt="Airport Exposure Program">
+                                alt="Airport Exposure Program" loading="lazy">
 
                             <div class="gallery-preview-content">
                                 <span class="badge-category">Airport Exposure</span>
@@ -1341,7 +1339,7 @@
                         <div class="gallery-preview-card">
 
                             <img src="{{ asset('assets/images/gallery/cabin-crew-activities/cabin-crew-safety-demonstration.jpg') }}"
-                                alt="Cabin Crew Training">
+                                alt="Cabin Crew Training" loading="lazy">
 
                             <div class="gallery-preview-content">
                                 <span class="badge-category">Cabin Crew</span>
@@ -1357,7 +1355,7 @@
                         <div class="gallery-preview-card">
 
                             <img src="{{ asset('assets/images/gallery/workshops-and-seminars/aviation-industry-workshop.jpg') }}"
-                                alt="Industry Workshop">
+                                alt="Industry Workshop" loading="lazy">
 
                             <div class="gallery-preview-content">
                                 <span class="badge-category">Workshops</span>
@@ -1373,7 +1371,7 @@
                         <div class="gallery-preview-card">
 
                             <img src="{{ asset('assets/images/gallery/placement-events/placement-interview-session.jpg') }}"
-                                alt="Placement Support">
+                                alt="Placement Support" loading="lazy">
 
                             <div class="gallery-preview-content">
                                 <span class="badge-category">Placements</span>
@@ -1882,7 +1880,7 @@
                 .html('Please Wait...');
 
             $.ajax({
-                url: '{{ route('download-brochure') }}',
+                url: "{{ route('download-brochure') }}",
                 type: 'POST',
                 data: $(this).serialize(),
 

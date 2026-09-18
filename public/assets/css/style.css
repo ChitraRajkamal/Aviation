@@ -1,7 +1,4 @@
 /* Default  */
-@import url("https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap");
 :root {
   --color-primary: #8B3FC0;
   --color-primary1: #b674da;
@@ -443,7 +440,7 @@ var {
 }
 
 /*---------------------------
-	List Style 
+	List Style
 ---------------------------*/
 ul,
 ol {
@@ -634,7 +631,7 @@ ol ul {
 }
 
 /*=========================
-    Section Separation 
+    Section Separation
 ==========================*/
 .slick-dotted.slick-slider {
   margin-bottom: 0;
@@ -9832,7 +9829,7 @@ iframe {
 }
 
 /*===============================
-    Background Color 
+    Background Color
 =================================*/
 .bg-color-primary {
   background: var(--color-primary-gradient);;
@@ -9863,7 +9860,7 @@ iframe {
 }
 
 /*===========================
-Background Image 
+Background Image
 =============================*/
 .bg_image {
   background-repeat: no-repeat;
@@ -10543,7 +10540,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*=============================
-	Overlay styles 
+	Overlay styles
 ==============================*/
 [data-overlay],
 [data-black-overlay],
@@ -10647,7 +10644,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*------------------------------
-    Scroll Up 
+    Scroll Up
 --------------------------------*/
 #scrollUp {
   width: 70px;
@@ -14130,9 +14127,9 @@ Copyright (c) 2015 Daniel Eden
   opacity: 1;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-xclip 
+xclip
 
 -------------------------------- */
 .cd-headline.clip span {
@@ -21128,7 +21125,7 @@ nav ul li a {
 
 .call-to-sction.style-three {
   text-align: center;
-  background-image: url(../images/cta/03.jpg); 
+  background-image: url(../images/cta/03.jpg);
   flex-direction: column;
 }
 .call-to-sction.style-three .title {
@@ -31413,7 +31410,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 .single-course-left-align-wrapper .title,
 .single-course-left-align-wrapper .author-area .author,
 .single-course-left-align-wrapper .author-area p,
-.single-course-left-align-wrapper .rating-area .stars-area span, 
+.single-course-left-align-wrapper .rating-area .stars-area span,
 .single-course-left-align-wrapper .rating-area .students, .single-course-left-align-wrapper .rating-area .calender-area-stars {
   color: #fff;
 }
@@ -31421,7 +31418,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   color: white;
 }
 .course-details-breadcrumb-1{
-  background-image: url(../images/breadcrumb/background-3.jpg);
+  background-image: url(../images/breadcrumb/background-3.webp);
 }
 
 @media screen and (min-width: 1200px) {

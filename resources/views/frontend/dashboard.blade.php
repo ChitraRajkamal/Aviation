@@ -93,9 +93,7 @@
                                     <div class="enroll">
                                         <p>Action</p>
                                     </div>
-                                    <div class="rating d-none">
-                                        <p>Rating</p>
-                                    </div>
+
                                 </div>
                                 @foreach ($courses as $e)
                                     <div class="single-course-inroll-board">
@@ -110,7 +108,7 @@
                                                 <span class="badge bg-success rounded-lg">Completed</span>
                                             @else
                                                 <span class="badge bg-dark">Active</span>
-                                            @endif                                            
+                                            @endif
                                         </div>
                                         <div class="enroll">
                                             @if ($e->course->status == 'Active')
@@ -118,18 +116,12 @@
                                                     <a href="{{route('courses.details', ['slug' => $e->course->slug])}}" class="fw-medium"><i class="fa-regular fa-tags"></i> View Course</a>
                                                 @else
                                                     <a href="{{route('courses.stage', ['slug' => $e->course->slug])}}" class="fw-medium"><i class="fa-regular fa-check"></i> Start Now</a>
-                                                @endif 
+                                                @endif
                                             @else
                                                 <s><i class="fa fa-exclamation-triangle text-danger"></i> Course Disabled</s>
-                                            @endif 
+                                            @endif
                                         </div>
-                                        <div class="rating d-none">
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                        </div>
+
                                     </div>
                                 @endforeach
                             </div>
@@ -197,9 +189,7 @@
                                     <div class="enroll">
                                         <p>Action</p>
                                     </div>
-                                    <div class="rating d-none">
-                                        <p>Rating</p>
-                                    </div>
+
                                 </div>
                                 @foreach ($exams as $e)
                                     <div class="single-course-inroll-board">
@@ -214,7 +204,7 @@
                                                 <span class="badge bg-success rounded-lg">Completed</span>
                                             @else
                                                 <span class="badge bg-dark">Active</span>
-                                            @endif                                            
+                                            @endif
                                         </div>
                                         <div class="enroll">
                                             @if ($e->exam->status == 1)
@@ -222,18 +212,12 @@
                                                     <a href="{{route('exams.result', ['slug' => $e->exam->slug])}}" class="fw-medium"><i class="fa-regular fa-tags"></i> View Result</a>
                                                 @else
                                                     <a href="{{route('exams.attend', ['slug' => $e->exam->slug])}}" class="fw-medium"><i class="fa-regular fa-check"></i> Attend Exam</a>
-                                                @endif 
+                                                @endif
                                             @else
                                                 <s><i class="fa fa-exclamation-triangle text-danger"></i> Exam Disabled</s>
-                                            @endif 
+                                            @endif
                                         </div>
-                                        <div class="rating d-none">
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                        </div>
+
                                     </div>
                                 @endforeach
                             </div>

@@ -12,7 +12,7 @@
                         <div class="pagination-wrapper">
                             <a href="{{ route('home') }}">Home</a>
                             <i class="fa-regular fa-chevron-right"></i>
-                            <a class="active" href="javascript:;">Gallery</a>
+                            <a class="active">Gallery</a>
                         </div>
                     </div>
                 </div>

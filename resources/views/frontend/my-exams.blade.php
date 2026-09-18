@@ -42,9 +42,7 @@
                                     <div class="enroll">
                                         <p>Action</p>
                                     </div>
-                                    <div class="rating d-none">
-                                        <p>Rating</p>
-                                    </div>
+
                                 </div>
                                 @if ($exams->isEmpty())
                                     <div class="alert alert-light text-center my-5">
@@ -75,18 +73,12 @@
                                                     <a href="{{route('exams.result', ['slug' => $e->exam->slug])}}" class="fw-medium"><i class="fa-regular fa-tags"></i> View Result</a>
                                                 @else
                                                     <a href="{{route('exams.attend', ['slug' => $e->exam->slug])}}" class="fw-medium"><i class="fa-regular fa-check"></i> Attend Exam</a>
-                                                @endif 
+                                                @endif
                                             @else
                                                 <s><i class="fa fa-exclamation-triangle text-danger"></i> Exam Disabled</s>
-                                            @endif 
+                                            @endif
                                         </div>
-                                        <div class="rating d-none">
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                        </div>
+
                                     </div>
                                 @endforeach
 

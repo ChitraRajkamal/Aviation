@@ -85,9 +85,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($jobPostList as $item) 
+                    @foreach ($jobPostList as $item)
                         @php
-                            $thumb = lms_thumb_placeholder();                            
+                            $thumb = lms_thumb_placeholder();
                             if($item->thumbnail) $thumb = lms_storage($item->thumbnail);
                         @endphp
                         <tr class="tr_{{$item->id}}">
@@ -99,7 +99,7 @@
                             <td>{{lms_show_price($item)}}</td>
                             <td>
                                 <div class="stars-area">
-                                    <span class="bs-tt fw-bold" title="Average ratings">{{lms_decimal_points($item->rating_average($global_is_organization))}}</span>
+                                    <span class="bs-tt fw-bold" title="Average ratings">{{lms_decimal_points($item->rating_average($global_is_organization), 1)}}</span>
                                     <div class="stars-area">
                                         <div class="stars-background">
                                             {!!str_repeat('<i class="fa fa-star-o"></i>', 5)!!}
@@ -125,8 +125,8 @@
                                         <a href="{{ route('admin.job-posts.edit', $item) }}" class="btn btn-primary btn-mini sloc bs-tt mr-2" title="Edit Item" data-placement="left">
                                             <i class="ph ph-pencil-simple mr-0"></i>
                                         </a>
-                                        <form action="{{ route('admin.job-posts.activate', ['jobPostId' => $item->id, 'status' => $item->status ? 0 : 1]) }}" id="activate-form-{{$item->id}}" 
-                                            class="d-inline-block mb-0 confirm-action mr-1" data-action="submit" 
+                                        <form action="{{ route('admin.job-posts.activate', ['jobPostId' => $item->id, 'status' => $item->status ? 0 : 1]) }}" id="activate-form-{{$item->id}}"
+                                            class="d-inline-block mb-0 confirm-action mr-1" data-action="submit"
                                             data-element_id="activate-form-{{$item->id}}" method="POST">
                                             @csrf
                                             @method('PUT')
@@ -134,8 +134,8 @@
                                                 <i class="ph ph-{{$item->status ? 'stop-circle' : 'check-circle'}} mr-0"></i>
                                             </button>
                                         </form>
-                                        <form action="{{ route('admin.job-posts.destroy', $item) }}" id="delete-form-{{$item->id}}" 
-                                            class="d-inline-block mb-0 confirm-action" data-action="submit" 
+                                        <form action="{{ route('admin.job-posts.destroy', $item) }}" id="delete-form-{{$item->id}}"
+                                            class="d-inline-block mb-0 confirm-action" data-action="submit"
                                             data-element_id="delete-form-{{$item->id}}" method="POST">
                                             @csrf
                                             @method('DELETE')

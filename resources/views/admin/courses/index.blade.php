@@ -73,9 +73,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($courseList as $item) 
+                    @foreach ($courseList as $item)
                         @php
-                            $thumb = lms_thumb_placeholder();                            
+                            $thumb = lms_thumb_placeholder();
                             if($item->thumbnail) $thumb = lms_storage($item->thumbnail);
                         @endphp
                         <tr class="tr_{{$item->id}}">
@@ -86,10 +86,10 @@
                                 {{$item->title}}
                                 <a href="{{ route('courses.details', ['slug'=>$item->slug]) }}" target="_blank"><i class="ph ph-eye"></i></a>
                             </td>
-                            <td>{{$item->category->title ?? '-'}}</td>                            
+                            <td>{{$item->category->title ?? '-'}}</td>
                             <td>
                                 <div class="stars-area">
-                                    <span class="bs-tt fw-bold" title="Average ratings">{{lms_decimal_points($item->rating_average($global_is_organization))}}</span>
+                                    <span class="bs-tt fw-bold" title="Average ratings">{{lms_decimal_points($item->rating_average($global_is_organization), 1)}}</span>
                                     <div class="stars-area">
                                         <div class="stars-background">
                                             {!!str_repeat('<i class="fa fa-star-o"></i>', 5)!!}
@@ -128,8 +128,8 @@
                                             </a>
                                         @endif
                                         @if (lms_can_access('admin.courses.activate'))
-                                            <form action="{{ route('admin.courses.activate', ['courseId' => $item->id, 'status' => $item->status == 'Active' ? 0 : 1]) }}" id="activate-form-{{$item->id}}" 
-                                                class="d-inline-block mb-0 confirm-action mr-1" data-action="submit" 
+                                            <form action="{{ route('admin.courses.activate', ['courseId' => $item->id, 'status' => $item->status == 'Active' ? 0 : 1]) }}" id="activate-form-{{$item->id}}"
+                                                class="d-inline-block mb-0 confirm-action mr-1" data-action="submit"
                                                 data-element_id="activate-form-{{$item->id}}" method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -139,8 +139,8 @@
                                             </form>
                                         @endif
                                         @if (lms_can_access('admin.courses.destroy'))
-                                            <form action="{{ route('admin.courses.destroy', $item) }}" id="delete-form-{{$item->id}}" 
-                                                class="d-inline-block mb-0 confirm-action" data-action="submit" 
+                                            <form action="{{ route('admin.courses.destroy', $item) }}" id="delete-form-{{$item->id}}"
+                                                class="d-inline-block mb-0 confirm-action" data-action="submit"
                                                 data-element_id="delete-form-{{$item->id}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -160,7 +160,7 @@
                                                 <i class="fa fa-star mr-0 text-white"></i>
                                             </a>
                                         @endif
-                                    @endif                                    
+                                    @endif
                                 </div>
                             </td>
                         </tr>

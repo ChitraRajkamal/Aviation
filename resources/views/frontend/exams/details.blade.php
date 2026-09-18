@@ -8,6 +8,7 @@
 @section('meta-data')
 <meta name="description" content="{{ $meta_data['description'] ?? '' }}">
 <meta name="robots" content="{{ $meta_data['robot'] ?? 'index, follow' }}">
+<link rel="canonical" href="{{ $meta_data['canonical_url'] ?? url()->current() }}">
 
 <!-- Open Graph (OG) Tags for Social Media -->
 <meta property="og:title" content="{{ $meta_data['og_title'] ?? $meta_data['title'] ?? $exam->title }}">
@@ -32,17 +33,7 @@
         font-size: 21px;
     }
 </style>
-<script>
-    /*$(document).ready(function() {
-        $.toast({
-            //heading: 'Success',
-            text: 'And these were just the basic demos! Scroll down to check further details on how to customize the output.',
-            showHideTransition: 'slide',
-            icon: 'success',
-            hideAfter: false
-        });
-    });*/
-</script>
+
 <!-- course details breadcrumb -->
 <div class="course-details-breadcrumb-1 bg_image rts-section-gap">
     <div class="container">
@@ -54,14 +45,14 @@
                         <i class="fa-solid fa-chevron-right"></i>
                         <a href="{{route('exams')}}">Exams</a>
                         <i class="fa-solid fa-chevron-right"></i>
-                        <a class="active" href="#">{{$exam->title}}</a>
+                        <a class="active" >{{$exam->title}}</a>
                     </div>
                     <h1 class="title">
                         {{$exam->title}}
                     </h1>
                     <div class="rating-area">
                         <div class="stars-area">
-                            <span>{{lms_decimal_points($averageRating)}}</span>
+                            <span>{{lms_decimal_points($averageRating, 1)}}</span>
                             <div class="stars-area">
                                 <div class="stars-background">
                                     {!!str_repeat('<i class="fa-regular fa-star"></i>', 5)!!}
@@ -130,7 +121,7 @@
                                 <form id="ratingForm" method="POST" class="submitForm" action="{{route('rating-save', ['type' => 'exam', 'type_id' => $exam->id])}}">
                                     @csrf
                                     <h4>Leave a Rating</h4>
-                                    
+
                                     <!-- Star Rating Input -->
                                     <div class="mb-3 d-flex align-items-center gap-4">
                                         <label class="form-label">Your Rating:</label>
@@ -144,7 +135,7 @@
                                     @error('rating')
                                         <div class="text-danger mb-3">{{ $message }}</div>
                                     @enderror
-                                
+
                                     <!-- Optional Message -->
                                     <div class="mb-4 d-flex align-items-center justify-content-between">
                                         <label for="message" class="form-label">Leave a Comment:</label>
@@ -153,11 +144,11 @@
                                     @error('message')
                                         <div class="text-danger mb-3">{{ $message }}</div>
                                     @enderror
-                                
+
                                     <!-- Submit Button -->
                                     <button type="submit" class="btn btn-primary btn-lg mb-5 w-auto">Submit Rating</button>
                                 </form>
-                                
+
                                 <!-- Star Rating Styling -->
                                 <style>
                                     #star-rating {
@@ -192,13 +183,13 @@
                                 </script>
                             @endif
                         @endif
-                        
+
                         <div class="rating-main-wrapper">
                             <!-- single-top-rating -->
                             <div class="rating-top-main-wrapper">
                                 <!-- rating area start -->
                                 <div class="rating-area-main-wrapper">
-                                    <h2 class="title">{{lms_decimal_points($averageRating)}}</h2>
+                                    <h2 class="title">{{lms_decimal_points($averageRating, 1)}}</h2>
 
                                     <div class="stars-area">
                                         <div class="stars-background">
@@ -233,7 +224,7 @@
                                 </div>
                             </div>
                             <!-- single-top-rating end-->
-                            
+
                             @foreach ($ratings as $item)
                                 <div class="indevidual-rating-area mt--25">
                                     <!-- author-area -->
@@ -241,7 +232,7 @@
                                         <img src="{{$global_user_image}}" alt="instructor">
                                         <div class="information">
                                             <span>
-                                                {{$item->user->full_name}} 
+                                                {{$item->user->full_name}}
                                                 @if (lms_user_id() == $item->user->id)
                                                     <small class="text-muted">[Your rating]</small>
                                                 @endif
@@ -277,7 +268,7 @@
                             </div>
                         @endif
                         <div class="price-area {{$exam->thumbnail ? 'mt-5' : 'mt-0'}}">
-                            
+
                             @if ($exam->discount_flag)
                                 <h3 class="title">{!!lms_show_price($exam, 'discounted_price')!!}</h3>
                                 <h4 class="none">{!!lms_show_price($exam)!!}</h4>
@@ -293,18 +284,18 @@
                                 <span>2 Day left at this price!</span>
                             </div>*/
                         @endphp
-                        
+
                         @if ($examEnrolled)
                             @if ($examAttended)
                                 <a href="{{lms_exam_slug($exam, 'result')}}" class="rts-btn btn-primary">VIEW RESULT</a>
                             @else
                                 <a href="{{lms_exam_slug($exam, 'prepare')}}" class="rts-btn btn-primary">ATTEND EXAM</a>
-                            @endif                            
+                            @endif
                         @else
                             @if ($exam->is_paid)
                                 @if (auth()->check())
                                     @if ($exam->cart())
-                                        <form action="{{ route('cart-save', ['type' => 'exam', 'type_id' => $exam->id]) }}" id="cart-form" 
+                                        <form action="{{ route('cart-save', ['type' => 'exam', 'type_id' => $exam->id]) }}" id="cart-form"
                                             class="mb-0 ml-1" method="POST">
                                             @csrf
                                             <button type="submit" class="rts-btn btn-border">
@@ -312,7 +303,7 @@
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{ route('cart-save', ['type' => 'exam', 'type_id' => $exam->id]) }}" id="cart-form" 
+                                        <form action="{{ route('cart-save', ['type' => 'exam', 'type_id' => $exam->id]) }}" id="cart-form"
                                             class="mb-0 ml-1" method="POST">
                                             @csrf
                                             <button type="submit" class="rts-btn btn-border">
@@ -324,7 +315,7 @@
                                     <a href="{{route('login')}}" class="rts-btn btn-border"><i class="fa-solid fa-shopping-cart"></i> Add To Cart</a>
                                 @endif
 
-                                <form action="{{ route('exams.create_order', ['slug' => $exam->slug]) }}" id="pay-form" 
+                                <form action="{{ route('exams.create_order', ['slug' => $exam->slug]) }}" id="pay-form"
                                     class="mb-0 ml-1" method="POST">
                                     @csrf
                                     <button type="submit" class="rts-btn btn-primary">
@@ -341,7 +332,7 @@
                                     });
                                 </script>
                             @else
-                                <form action="{{ route('exams.enroll', ['slug' => $exam->slug]) }}" id="enroll-form" 
+                                <form action="{{ route('exams.enroll', ['slug' => $exam->slug]) }}" id="enroll-form"
                                     class="mb-0 ml-1" method="POST">
                                     @csrf
                                     <button type="submit" class="rts-btn btn-primary">
@@ -398,20 +389,13 @@
                                     <span>{{lms_format_date($exam->updated_at)}}</span>
                                 </div>
                             </div>
-                            <div class="single-include d-none">
-                                <div class="left">
-                                    <i class="fa-sharp fa-light fa-file-certificate"></i>
-                                    <span>Certificate</span>
-                                </div>
-                                <div class="right">
-                                    <span>Certificate of completion </span>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <!-- single course-sidebar end -->
                 </div>
                 <!-- right- sticky bar area end -->
+
                 <!-- right- sticky bar area -->
                 <div class="right-course-details mt--30">
                     <!-- single course-sidebar -->
@@ -427,72 +411,69 @@
                             </div>
                         </div>
                         <!-- course single sidebar end-->
-                        <!-- course single sidebar -->
-                        <div class="course-single-information d-none">
-                            <h5 class="title">Material Includes</h5>
-                            <div class="body">
-                                <!-- ingle check -->
-                                <div class="single-check">
-                                    <i class="fa-light fa-circle-check"></i>
-                                    Flexible Deadlines
-                                </div>
-                                <!-- ingle check end -->
-                                <!-- ingle check -->
-                                <div class="single-check">
-                                    <i class="fa-light fa-circle-check"></i>
-                                    Hours of live- demo
-                                </div>
-                                <!-- ingle check end -->
-                                <!-- ingle check -->
-                                <div class="single-check">
-                                    <i class="fa-light fa-circle-check"></i>
-                                    Hours of live- demo
-                                </div>
-                                <!-- ingle check end -->
-                                <!-- ingle check -->
-                                <div class="single-check">
-                                    <i class="fa-light fa-circle-check"></i>
-                                    200+ downloadable resoursces
-                                </div>
-                                <!-- ingle check end -->
-                            </div>
-                        </div>
-                        <!-- course single sidebar end-->
-                        
-                        <!-- course single sidebar -->
-                        {{-- <div class="course-single-information d-none">
-                            <h5 class="title">Tags</h5>
-                            <div class="body">
-                                <div class="tags-wrapper">
-                                    <!-- single tags -->
-                                    <span>Exam</span>
-                                    <span>Design</span>
-                                    <span>Web development</span>
-                                    <span>Business</span>
-                                    <span>UI/UX</span>
-                                    <span>Financial</span>
-                                    <!-- single tags end -->
-                                </div>
-                            </div>
-                        </div> --}}
-                        <!-- course single sidebar end-->
+
                         <!-- course single sidebar -->
                         <div class="course-single-information">
                             <h5 class="title">Share</h5>
                             <div class="body">
                                 <!-- social-share-course-sidebar -->
-                                <div class="social-share-course-side-bar">
-                                    <ul>
-                                        <li><a href="#" target="_blank" id="share-facebook" class="bs-tt" title="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                        <li><a href="#" target="_blank" id="share-linkedin" class="bs-tt" title="Share on Linkedin"><i class="fa-brands fa-linkedin"></i></a></li>
-                                        <li><a href="#" target="_blank" id="share-pinterest" class="bs-tt" title="Share on Pinterest"><i class="fa-brands fa-pinterest"></i></a></li>
-                                        <li>
-                                            <a href="#" target="_blank" id="share-twitter" class="bs-tt" title="Share on X">   
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="align-baseline" width="24" height="24" fill="#110c2d" viewBox="0 0 256 256"><path d="M215,219.85a8,8,0,0,1-7,4.15H160a8,8,0,0,1-6.75-3.71l-40.49-63.63L53.92,221.38a8,8,0,0,1-11.84-10.76l61.77-68L41.25,44.3A8,8,0,0,1,48,32H96a8,8,0,0,1,6.75,3.71l40.49,63.63,58.84-64.72a8,8,0,0,1,11.84,10.76l-61.77,67.95,62.6,98.38A8,8,0,0,1,215,219.85Z"></path></svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                               @php
+    $shareUrl = urlencode(url()->current());
+    $shareTitle = urlencode($exam->title);
+@endphp
+
+<div class="social-share-course-side-bar">
+    <ul>
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bs-tt"
+                title="Share on Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $shareUrl }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bs-tt"
+                title="Share on LinkedIn">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="https://pinterest.com/pin/create/button/?url={{ $shareUrl }}&description={{ $shareTitle }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bs-tt"
+                title="Share on Pinterest">
+                <i class="fa-brands fa-pinterest"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="https://twitter.com/intent/tweet?url={{ $shareUrl }}&text={{ $shareTitle }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bs-tt"
+                title="Share on X">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="align-baseline"
+                    width="24"
+                    height="24"
+                    fill="#110c2d"
+                    viewBox="0 0 256 256">
+                    <path
+                        d="M215,219.85a8,8,0,0,1-7,4.15H160a8,8,0,0,1-6.75-3.71l-40.49-63.63L53.92,221.38a8,8,0,0,1-11.84-10.76l61.77-68L41.25,44.3A8,8,0,0,1,48,32H96a8,8,0,0,1,6.75,3.71l40.49,63.63,58.84-64.72a8,8,0,0,1,11.84,10.76l-61.77,67.95,62.6,98.38A8,8,0,0,1,215,219.85Z">
+                    </path>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</div>
                                 <!-- social-share-course-sidebar end -->
                             </div>
                         </div>

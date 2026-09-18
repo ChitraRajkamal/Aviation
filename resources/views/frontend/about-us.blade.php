@@ -12,7 +12,7 @@
                   <div class="pagination-wrapper">
                     <a href="{{ route('home') }}">Home</a>
                       <i class="fa-regular fa-chevron-right"></i>
-                      <a class="active" href="javascript:;">About Us</a>
+                      <a class="active" >About Us</a>
                   </div>
                   <!-- breadcrumb pagination area end -->
               </div>

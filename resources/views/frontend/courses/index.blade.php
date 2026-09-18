@@ -40,7 +40,7 @@
                 var viewType = this.id == 'list-view-tab' ? 'list' : 'grid';
                 if('{{$viewType}}' == viewType) return false;
                 $(this).html('<i class="fa fa-spin fa-circle-notch"></i> <span> Loading...</span>');
-                $.post('{{route('set.cookie')}}', { viewType, _token: '{{ csrf_token() }}' }, function(){
+                $.post("{{route('set.cookie')}}", { viewType, _token: '{{ csrf_token() }}' }, function(){
                     location.reload();
                 });
             });
@@ -70,7 +70,7 @@
                             });
                         }, 'JSON');
                     @else
-                        window.location.href = '{{route('login')}}';
+                        window.location.href = "{{route('login')}}";
                     @endif
                 }
                 catch(err) {
@@ -171,20 +171,10 @@
 <!-- course area start -->
 <div class="rts-course-default-area rts-section-gap">
     <div class="container">
-        {{-- <div id="html" class="demo d-none">
-            <ul>
-                <li data-jstree='{ "opened" : true }'>Root node
-                    <ul>
-                        <li data-jstree='{ "selected" : true }'>Child node 1</li>
-                        <li>Child node 2</li>
-                    </ul>
-                </li>
-            </ul>
-        </div> --}}
 
         <h1 class="h3 mb-0">Aviation Courses in Chennai</h1>
         <p>Explore career-focused aviation training programs designed for students, fresh graduates, and working professionals.</p>
-        
+
         <div class="row g-5">
             <div class="col-lg-3">
                 <form action="">
@@ -293,7 +283,7 @@
                         <button type="submit" class="rts-btn btn-primary m-auto mt-5"><i class="fa-regular fa-filter"></i> Apply Filters</button>
                         @if (request('search', false))
                             <a href="{{route('courses')}}" class="rts-btn btn-border"><i class="fa-regular fa-x"></i> Clear All Filters</a>
-                        @endif                        
+                        @endif
                     </div>
                     <!-- course-filter-area end -->
                 </form>
@@ -305,7 +295,7 @@
                         <span>{{$total_courses}} {{lms_plural('course', $total_courses)}} found</span>
                     </div>
                     <div class="right-filter">
-                        
+
                         <ul class="nav nav-tabs" id="listingView" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link {{$viewType == 'grid' ? 'active' : ''}}" id="grid-view-tab" data-bs-toggles="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">
@@ -334,40 +324,25 @@
                                     @endphp
                                     <div class="col-lg-4 col-md-6 col-sm-12 col-12">
                                         <!-- single course style two -->
-                                        <div class="single-course-style-three wishlist-icon">                                                
+                                        <div class="single-course-style-three wishlist-icon">
                                             <div class="save-icon wishlist-save {{$item->wishlist() ? 'added' : ''}}" data-refresh="false" data-type="course" data-id="{{$item->id}}">
                                                 <i class="fa-sharp fa-light fa-bookmark"></i>
                                             </div>
                                             <a href="{{lms_course_slug($item)}}" class="thumbnail">
-                                                <img src="{{lms_image($item->thumbnail)}}" alt="{{ $item->title }}">
+                                                <img src="{{lms_image($item->thumbnail)}}" alt="{{ $item->title }}" loading="lazy">
                                                 <div class="tag-thumb">
                                                     <span>{{ $item->category->title }}</span>
                                                 </div>
                                             </a>
                                             <div class="body-area">
-                                                {{-- <div class="course-top">
-                                                    <div class="tags d-none">Best Seller</div>
-                                                    @if ($item->enroll())
-                                                        <div class="tags border border-light rounded"><i class="fa fa-check-circle text-success"></i> Enrolled</div>
-                                                    @endif
-                                                    @if ($item->discount_flag)
-                                                        <div class="price">{!!lms_show_price($item, 'discounted_price')!!}</div>
-                                                        <s class="text-muted">
-                                                            {!!lms_show_price($item)!!}
-                                                        </s>
-                                                    @else
-                                                        <div class="price">
-                                                            {!!lms_show_price($item)!!}
-                                                        </div>
-                                                    @endif
-                                                </div> --}}
+
                                                 <a href="{{lms_course_slug($item)}}">
                                                     <h5 class="title">{{ $item->title }}</h5>
                                                 </a>
                                                 <div class="teacher-stars d-flex justify-content-between">
                                                     <div class="teacher">By <span>{{ $item->user->first_name }}</span></div>
                                                     <ul class="stars">
-                                                        <span class="text-dark fw-bold">{{lms_decimal_points($item->rating_average())}}</span>
+                                                        <span class="text-dark fw-bold">{{ number_format($item->rating_average(), 1) }}</span>
                                                         <div class="stars-area">
                                                             <div class="stars-background">
                                                                 {!!str_repeat('<i class="fa-regular fa-star"></i>', 5)!!}
@@ -393,7 +368,7 @@
                                         <!-- single course style two end -->
                                     </div>
                                 @endforeach
-                                
+
                             </div>
                         </div>
                     @else
@@ -407,7 +382,7 @@
                                                 <i class="fa-sharp fa-light fa-bookmark"></i>
                                             </div>
                                             <a href="{{lms_course_slug($item)}}" class="thumbnail shadow-lg">
-                                                <img src="{{lms_image($item->thumbnail)}}" alt="{{ $item->title }}">
+                                                <img src="{{lms_image($item->thumbnail)}}" alt="{{ $item->title }}" loading="lazy">
                                             </a>
                                             <div class="information-inner">
                                                 <div class="tags-area-wrapper mb-3">
@@ -426,7 +401,7 @@
                                                             <span>0 Enrolled</span>
                                                         </div>
                                                     </div>
-                                                @endif                                                
+                                                @endif
                                                 <a href="{{lms_course_slug($item)}}">
                                                     <h5 class="title">{{ $item->title }}</h5>
                                                 </a>
@@ -434,7 +409,8 @@
                                                 <p class="teacher">By {{ $item->user->first_name }}</p>
                                                 <div class="rating-and-price">
                                                     <div class="rating-area">
-                                                        <span class="text-dark fw-bold">{{lms_decimal_points($item->rating_average())}}</span>
+                                                       <!-- <span class="text-dark fw-bold">{{lms_decimal_points($item->rating_average())}}</span> -->
+                                                        <span class="text-dark fw-bold">{{ number_format($item->rating_average(), 1) }}</span>
                                                         <div class="stars">
                                                             <div class="stars-area">
                                                                 <div class="stars-background">
@@ -478,7 +454,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

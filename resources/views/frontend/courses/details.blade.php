@@ -1117,10 +1117,10 @@
                 @foreach($faqs->name as $k => $question)
                 {
                     "@type":"Question",
-                    "name":"{{ addslashes(strip_tags($question)) }}",
+                    "name":{!! json_encode(strip_tags($question), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!},
                     "acceptedAnswer":{
                         "@type":"Answer",
-                        "text":"{{ addslashes(strip_tags($faqs->value[$k])) }}"
+                        "text":{!! json_encode(strip_tags($faqs->value[$k]), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
                     }
                 }@if(!$loop->last),@endif
                 @endforeach

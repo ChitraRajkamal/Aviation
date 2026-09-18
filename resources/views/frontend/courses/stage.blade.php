@@ -28,7 +28,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if($('.plyr__video-embed').length > 0){
-                const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(player => 
+                const players = Array.from(document.querySelectorAll('.plyr__video-embed')).map(player =>
                     new Plyr(player, {
                         autoplay: false,
                         controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'fullscreen'],
@@ -194,7 +194,7 @@
         font-size: 2.5rem;
         opacity: 0.8;
     }
-    .widget-cards > div:nth-child(1) > div { background: linear-gradient(135deg, #badfff, #42A5F5); } 
+    .widget-cards > div:nth-child(1) > div { background: linear-gradient(135deg, #badfff, #42A5F5); }
     .widget-cards > div:nth-child(2) > div { background: linear-gradient(135deg, #9ffda3, #66BB6A); }
     .widget-cards > div:nth-child(3) > div { background: linear-gradient(135deg, #f99390, #EF5350); }
     .widget-cards > div:nth-child(4) > div { background: linear-gradient(135deg, #f9ea90, #efa750); }
@@ -287,7 +287,7 @@
                                 <div class="each-quesiton">
                                     <h6 class="mb-1 d-flex justify-content-between">
                                         <span>
-                                            Question #{{$qk+1}} 
+                                            Question #{{$qk+1}}
                                             @if ($q->type == 'multiple' && count($answers) > 1)
                                                 <small class="text-muted">
                                                     [Choose {{count($answers)}} {{ lms_plural('answer', count($answers)) }}]
@@ -311,7 +311,7 @@
                                                             <label class="form-check-label" for="checkbox_{{$q->id}}_{{$opk}}">
                                                                 {{$op}}
                                                             </label>
-                                                        </div>                                                   
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -331,11 +331,11 @@
                                                         false
                                                     </label>
                                                 </div>
-                                            </div>                                    
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
-                            @endforeach                        
+                            @endforeach
                         </div>
                         <button class="btn btn-primary w-auto btn-normal" id="submitAnswersBtn"><i class="fa-regular fa-save"></i> Submit Answers</button>
                     @else
@@ -354,7 +354,7 @@
                                     </div>
                                 </div>
                             </div>
-                
+
                             <!-- Revenue Widget -->
                             <div class="col-md-3">
                                 <div class="widget-card">
@@ -369,7 +369,7 @@
                                     </div>
                                 </div>
                             </div>
-                
+
                             <!-- Orders Widget -->
                             <div class="col-md-3">
                                 <div class="widget-card">
@@ -379,12 +379,12 @@
                                         </div>
                                         <div>
                                             <h2>{!!$currentLesson->retake == 0 ? '<i class="fas fa-infinity"></i></h2>' : $currentLesson->retake !!} <small class="fw-normal" style="font-size: 40%;">/ {{$result_count}} attempted</small></h2>
-                                            <h5>Reattempt</h5> 
+                                            <h5>Reattempt</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                
+
                             <!-- Orders Widget -->
                             <div class="col-md-3">
                                 <div class="widget-card">
@@ -394,13 +394,13 @@
                                         </div>
                                         <div>
                                             <h2>{{$currentLesson->question_count(check_status: true)}}</h2>
-                                            <h5>Questions</h5> 
+                                            <h5>Questions</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">                            
+                        <div class="text-center">
                             @if ($result_count == 0)
                                 <div class="d-flex justify-content-center gap-3 mt-5 mb-1">
                                     <div>{{ __('Challenge your mind, test your skills') }}</div>
@@ -460,7 +460,7 @@
                                                                 <div class="each-question question-{{$ans->is_correct ? 'correct' : 'wrong'}}">
                                                                     <h6 class="mb-1 d-flex justify-content-between">
                                                                         <span>
-                                                                            Question #{{$qk+1}} 
+                                                                            Question #{{$qk+1}}
                                                                         </span>
                                                                         <span class="text-success fw-normal">{{$q->marks}} {{lms_plural('mark', $q->marks)}}</span>
                                                                     </h6>
@@ -492,9 +492,9 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            </div>                            
+                            </div>
                         @endif
-                    @endif                    
+                    @endif
                 @else
                     <h3 class="my-3 mt-5 fw-medium current-lesson-title">{{$currentLesson->title}}</h3>
                     @if ($lesson_type == 'youtube')
@@ -508,7 +508,7 @@
                             <div class="plyr__video-embed">
                                 <iframe src="https://player.vimeo.com/video/{{lms_get_vimeo_id($currentLesson->lesson_src)}}" allowfullscreen allowtransparency allow="autoplay"></iframe>
                             </div>
-                        </div>                        
+                        </div>
                     @elseif ($lesson_type == 'image')
                         <img src="{{lms_storage($currentLesson->lesson_src)}}" class="w-100">
                     @elseif (in_array($lesson_type, ['upload', 'mp4']) == 'upload')
@@ -533,7 +533,7 @@
                 @if ($result_count == 0)
                     <hr class="mt-5">
                 @endif
-                
+
                 <div class="mt-4">
                     <div class="course-details-btn-wrapper border-bottom-0 pb-3">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -581,8 +581,8 @@
                     <div class="text-center mt-4">
                         <button type="button" class="btn btn-success w-auto btn-lg go-to-next-lesson"><i class="fa fa-check"></i> Complete & Go To Next</button>
                     </div>
-                @endif                
-        
+                @endif
+
                 <div class="course-content-wrapper-main">
                     <!-- course content accordion area -->
                     <div class="accordion mt--30" id="accordionSection">
@@ -604,14 +604,14 @@
                                 <div id="collapseSec{{$section->id}}" class="accordion-collapse collapse {{$currentLesson->section->id == $section->id ? 'show' : ''}}" aria-labelledby="headingSec{{$section->id}}" data-bs-parent="#accordionSection">
                                     <div class="accordion-body">
                                         @foreach ($section->lessons as $lk => $lesson)
-                                            <a href="{{$lesson->is_completed() ? (route('courses.stage', ['slug' => $course->slug, 'lessonId' => $lesson->id])) : 'javascript:;' }}" 
+                                            <a href="{{$lesson->is_completed() ? (route('courses.stage', ['slug' => $course->slug, 'lessonId' => $lesson->id])) : 'javascript:;' }}"
                                                 class="play-vedio-wrapper {{$lesson->is_completed() ? '' : 'cursor-disabled opacity-75'}} {{$currentLesson->id == $lesson->id ? 'active' : ''}}">
                                                 <div class="left">
                                                     <span class="cursor-help">{!! lms_lesson_type_icon($lesson->lesson_type, $lesson->document_type) !!}</span>
                                                     <span>{{$lesson->title}}</span>
                                                 </div>
                                                 <div class="right">
-                                                    <span class="play d-none">Preview</span>
+
                                                     <span>{{ $lesson->getDurationTextAttribute('short') }}</span>
                                                 </div>
                                             </a>
@@ -633,7 +633,7 @@
         var exam_settings = {!! json_encode($settings) !!};
         var questions = {!! json_encode($questions) !!};
         $(document).ready(function() {
-            
+
             const [hours, minutes, seconds] = exam_settings.duration.split(":").map(Number);
             let totalSeconds = hours * 3600 + minutes * 60 + seconds;
             let _totalSeconds = totalSeconds;
@@ -691,8 +691,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-4 px-5 text-center text-muted h">
-                    Switching windows or using Alt + Tab during the quiz is <b class="text-danger h4">strictly prohibited</b>. 
-                    This is your first and last warning. Further violations will result in the automatic 
+                    Switching windows or using Alt + Tab during the quiz is <b class="text-danger h4">strictly prohibited</b>.
+                    This is your first and last warning. Further violations will result in the automatic
                     submission of your answers and <b class="text-danger h4">termination</b> of the exam.
                 </div>
                 <div class="modal-footer justify-content-center">
@@ -709,7 +709,7 @@
         $('.go-to-next-lesson').click(function() {
             $(this).html('<i class="fa fa-spin fa-circle-notch"></i> Processing...').prop('disabled', true).addClass('opacity-50');
             $.post('{{route('courses.stage.next_lesson', ['slug' => $course->slug, 'lessonId' => $currentLesson->id])}}', {
-                _token: $('meta[name="csrf-token"]').attr('content'), 
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 id: {{$currentLesson->id}}
             }, function (result) {
                 if(result.status == 'error'){

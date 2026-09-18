@@ -20,7 +20,7 @@
                         <div class="pagination-wrapper">
                             <a href="{{ route('home') }}">Home</a>
                             <i class="fa-regular fa-chevron-right"></i>
-                            <a class="active" href="javascript:;">Contact us</a>
+                            <a class="active" >Contact us</a>
                         </div>
                         <!-- breadcrumb pagination area end -->
                     </div>
@@ -160,7 +160,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="single-input mb-4">
@@ -234,8 +234,7 @@
                             <i class="far fa-phone text-danger"></i> <a
                                 href="tel:{{ $phone }}">{{ $phone }}</a>
                             <br>
-                            <i class="far fa-envelope text-danger"></i> <a
-                                href="tel:{{ $email }}">{{ $email }}</a>
+                            <i class="far fa-envelope text-danger"></i> <a href="tel:{{ $email }}">{{ $email }}</a>
                         </div>
                     </div>
                     <div class="map-bottom-area mt--30">

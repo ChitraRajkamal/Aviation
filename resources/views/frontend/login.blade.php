@@ -55,19 +55,14 @@
                                     <div class="parsley-errors-list">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="single-checkbox-filter d-none">
-                                <div class="check-box">
-                                    <input type="checkbox" id="type-1">
-                                    <label for="type-1">Remember Me</label><br>
-                                </div>
-                            </div>
+
                             <button id="btn-login" class="rts-btn btn-primary">Login</button>
 
                             @session('error')
                                 <div class="text-danger mt-2">
                                     {{ session('error') }}
                                 </div>
-                            @endsession                            
+                            @endsession
 
                             <div class="google-apple-wrapper flex-column">
                                 @if (lms_setting('google_login_client_id'))
@@ -111,7 +106,7 @@
         var YOUR_CLIENT_ID = '{{lms_setting('google_login_client_id')}}';
         var YOUR_REDIRECT_URI = '{{route(name: 'login')}}?oauth=google';
         var fragmentString = location.hash.substring(1);
-      
+
         // Parse query string to see if page request is coming from OAuth 2.0 server.
         var params = {};
         var regex = /([^&=]+)=([^&]*)/g, m;
@@ -119,7 +114,7 @@
           params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
         }
         setTimeout(() => {
-          //if($_GET['return'] != '') params['return'] = $_GET['return'];    
+          //if($_GET['return'] != '') params['return'] = $_GET['return'];
         }, 10);
         if (Object.keys(params).length > 0) {
           localStorage.setItem('lms-google-params', JSON.stringify(params) );
@@ -131,7 +126,7 @@
                 }
             }
         }
-      
+
         // If there's an access token, try an API request.
         // Otherwise, start OAuth 2.0 flow.
         function googleOAuth() {
@@ -170,19 +165,19 @@
             oauth2SignIn();
           }
         }
-      
+
         /*
          * Create form to request access token from Google's OAuth 2.0 server.
          */
         function oauth2SignIn() {
           // Google's OAuth 2.0 endpoint for requesting an access token
           var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-      
+
           // Create element to open OAuth 2.0 endpoint in new window.
           var form = document.createElement('form');
           form.setAttribute('method', 'GET'); // Send as a GET request.
           form.setAttribute('action', oauth2Endpoint);
-      
+
           // Parameters to pass to OAuth 2.0 endpoint.
           var params = {'client_id': YOUR_CLIENT_ID,
                         'redirect_uri': YOUR_REDIRECT_URI,
@@ -190,7 +185,7 @@
                         'state': 'googleOAuth,' + ($_GET['return'] ? $_GET['return'] : ''),
                         'include_granted_scopes': 'true',
                         'response_type': 'token'};
-      
+
           // Add form parameters as hidden input values.
           for (var p in params) {
             var input = document.createElement('input');
@@ -199,17 +194,17 @@
             input.setAttribute('value', params[p]);
             form.appendChild(input);
           }
-      
+
           // Add form to page and submit it to open the OAuth 2.0 endpoint.
           document.body.appendChild(form);
           form.submit();
         }
         $(document).ready(function(){
-          
+
         });
       </script>
 
-      <script>  
+      <script>
         window.fbAsyncInit = function() {
           FB.init({
             appId      : '{{lms_setting('facebook_login_app_id')}}',
@@ -218,30 +213,30 @@
             version    : '{{lms_setting('facebook_graph_api_version')}}'
           });
         };
-      
+
         function checkFbLoginState() {
-            
+
           FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
-              authenticateFacebook(response.authResponse.accessToken);  
-            } else { 
+              authenticateFacebook(response.authResponse.accessToken);
+            } else {
               loginToFacebook();
             }
           });
         }
-      
+
         function loginToFacebook(){
           FB.login(function(response) {
             if (response.status === 'connected') {
-              authenticateFacebook(response.authResponse.accessToken);  
+              authenticateFacebook(response.authResponse.accessToken);
             }else{
               alert('Authentication is not completed. Please try again');
             }
           }, {scope: 'public_profile,email'});
         }
-      
+
         function authenticateFacebook(t) {
-            
+
           $.post('{{route('login.facebook.auth.verify')}}', { _token: '{{ csrf_token() }}', t: t }, function (result){
             if(result.status == 'error'){
               notify({title: result.message});

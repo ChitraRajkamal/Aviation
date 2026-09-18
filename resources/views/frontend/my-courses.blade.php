@@ -39,9 +39,7 @@
                                     <div class="enroll">
                                         <p>Action</p>
                                     </div>
-                                    <div class="rating d-none">
-                                        <p>Rating</p>
-                                    </div>
+
                                 </div>
                                 @if ($courses->isEmpty())
                                     <div class="alert alert-light text-center my-5">
@@ -69,18 +67,12 @@
                                                     <a href="{{route('courses.details', ['slug' => $e->course->slug])}}" class="fw-medium"><i class="fa-regular fa-tags"></i> View Course</a>
                                                 @else
                                                     <a href="{{route('courses.stage', ['slug' => $e->course->slug])}}" class="fw-medium"><i class="fa-regular fa-check"></i> Start Now</a>
-                                                @endif 
+                                                @endif
                                             @else
                                                 <s><i class="fa fa-exclamation-triangle text-danger"></i> Course Disabled</s>
-                                            @endif 
+                                            @endif
                                         </div>
-                                        <div class="rating d-none">
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                            <i class="fa-light fa-star"></i>
-                                        </div>
+
                                     </div>
                                 @endforeach
 

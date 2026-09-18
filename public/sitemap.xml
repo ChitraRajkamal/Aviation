@@ -4,7 +4,6 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
 <url>
@@ -12,11 +11,7 @@
   <lastmod>2026-06-21T17:05:30+00:00</lastmod>
   <priority>1.00</priority>
 </url>
-<url>
-  <loc>https://firstflyaviation.com/courses?search=true&amp;query=&amp;category[]=1</loc>
-  <lastmod>2026-06-21T17:05:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+
 <url>
   <loc>https://firstflyaviation.com/courses</loc>
   <lastmod>2026-06-21T17:05:30+00:00</lastmod>
@@ -42,16 +37,8 @@
   <lastmod>2026-06-21T17:05:30+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://firstflyaviation.com/login</loc>
-  <lastmod>2026-06-21T17:05:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://firstflyaviation.com/register</loc>
-  <lastmod>2026-06-21T17:05:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+
+
 <url>
   <loc>https://firstflyaviation.com/courses/cabin-crew-training</loc>
   <lastmod>2026-06-21T17:05:30+00:00</lastmod>
@@ -132,11 +119,7 @@
   <lastmod>2026-06-21T17:05:30+00:00</lastmod>
   <priority>0.64</priority>
 </url>
-<url>
-  <loc>https://firstflyaviation.com/forgot-password</loc>
-  <lastmod>2026-06-21T17:05:30+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+
 
 
 </urlset>
