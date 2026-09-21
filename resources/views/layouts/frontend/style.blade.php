@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/vendor/metismenu.css') }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/parsleyjs/src/parsley.css">
 <!-- custom style css -->
-<link rel="stylesheet" href="{{ asset('assets/css/style.css?') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,3 +42,4 @@
 
 <!-- jquery min js -->
 <script src="{{ asset('assets/js/vendor/jquery.min.js') }}"></script>
+

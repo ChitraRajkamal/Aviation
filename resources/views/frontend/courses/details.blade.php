@@ -102,7 +102,7 @@
                         </div>
                         <div class="author-area">
                             <div class="author">
-                                <img src="{{ asset('admin-assets/assets/images/profile-40.png') }}" alt="Instructor">
+                                <img src="{{ asset('admin-assets/assets/images/profile-40.png') }}" alt="Instructor" width="40" height="40">
                                 <div class="name fw-medium"><span>By</span> {{ $course->user->first_name }}.</div>
                             </div>
                             <p> <span>Category: </span> {{ $course->category->title }}</p>
@@ -255,7 +255,7 @@
                         <!-- single instructor area staret -->
                         <div class="single-instructor-area-details">
                             <a href="#" class="thumbnail">
-                                <img src="{{asset('assets/images/instructor/10.jpg')}}" alt="instructor">
+                                <img src="{{asset('assets/images/instructor/10.jpg')}}" alt="instructor" width="205" height="205">
                             </a>
                             <div class="inner-instrustor-area">
                                 <h5 class="title">William U.</h5>
@@ -297,7 +297,7 @@
                         <!-- single instructor area staret -->
                         <div class="single-instructor-area-details">
                             <a href="#" class="thumbnail">
-                                <img src="{{asset('assets/images/instructor/11.jpg')}}" alt="instructor">
+                                <img src="{{asset('assets/images/instructor/11.jpg')}}" alt="instructor" width="205" height="205">
                             </a>
                             <div class="inner-instrustor-area">
                                 <h5 class="title">William U.</h5>
@@ -893,7 +893,7 @@
                                 <div class="body">
                                     <div class="author">
                                         <img src="{{ asset('admin-assets/assets/images/profile-40.png') }}"
-                                            alt="Instructor">
+                                            alt="Instructor" width="40" height="40">
                                         <span>{{ $course->user->first_name }}</span>
                                     </div>
                                 </div>
