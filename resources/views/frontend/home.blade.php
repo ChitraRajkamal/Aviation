@@ -131,7 +131,7 @@
 
                     <div class="banner-right-img text-center">
 
-                        <img src="{{ asset('assets/images/home-banner-3.png') }}" alt="First Fly Aviation Academy Chennai">
+                        <img src="{{ asset('assets/images/home-banner-3.png') }}" alt="First Fly Aviation Academy Chennai" width="800" height="773">
 
                     </div>
 
@@ -282,7 +282,7 @@
                     <div class="about-one-left-image">
 
                         <div class="second-order">
-                            <img src="{{ asset('assets/images/about-us-why-choose.jpg') }}"
+                            <img src="{{ asset('assets/images/about-us-why-choose.jpg') }}" width="800" height="559"
                                 alt="First Fly Aviation Academy Chennai">
                         </div>
 
@@ -738,7 +738,7 @@
 
                 <div class="col-lg-6">
 
-                    <img src="{{ asset('assets/images/career-opportunities.jpg') }}" class="img-fluid rounded-3 shadow"
+                    <img src="{{ asset('assets/images/career-opportunities.jpg') }}" width="900" height="600" class="img-fluid rounded-3 shadow"
                         alt="Aviation Career Opportunities">
 
                 </div>
@@ -854,7 +854,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/aishwarya.png') }}"
+                                                    <img src="{{ asset('assets/images/students/aishwarya.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Aishwarya G" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -886,7 +886,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/vishal.png') }}"
+                                                    <img src="{{ asset('assets/images/students/vishal.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Vishal S" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -917,7 +917,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/monika.png') }}"
+                                                    <img src="{{ asset('assets/images/students/monika.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Monika R" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -948,7 +948,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/suresh.png') }}"
+                                                    <img src="{{ asset('assets/images/students/suresh.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Suresh K" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -982,7 +982,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/janani.png') }}"
+                                                    <img src="{{ asset('assets/images/students/janani.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Janani P" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -1013,7 +1013,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/harish.png') }}"
+                                                    <img src="{{ asset('assets/images/students/harish.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Harish M" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -1044,7 +1044,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/sneha.png') }}"
+                                                    <img src="{{ asset('assets/images/students/sneha.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Sneha V" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -1075,7 +1075,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/akash.png') }}"
+                                                    <img src="{{ asset('assets/images/students/akash.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Akash D" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -1107,7 +1107,7 @@
                                             </p>
                                             <div class="author-area">
                                                 <div class="d-flex gap-5 align-items-center">
-                                                    <img src="{{ asset('assets/images/students/lavanya.png') }}"
+                                                    <img src="{{ asset('assets/images/students/lavanya.png') }}" width="100" height="100"
                                                         class="rounded-circle" alt="Lavanya S" loading="lazy">
                                                     <div>
                                                         <ul class="stars">
@@ -1907,3 +1907,10 @@
         });
     </script>
 @endsection
+
+
+
+
+
+
+
